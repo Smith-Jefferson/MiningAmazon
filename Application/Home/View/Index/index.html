@@ -5,11 +5,10 @@
 <!--<script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>-->
 <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
 <script src="__PUBLIC__/js/bootstrap.js"></script>
-<script src="__PUBLIC__/js/umd/boot3-tp.js"></script>
+<!--<script src="__PUBLIC__/js/umd/boot3-tp.js"></script>-->
 <link rel="stylesheet" href="__PUBLIC__/css/rateit.css">
 <script src="__PUBLIC__/js/jquery.rateit.min.js"></script>
 <link rel="Bookmark" href="__PUBLIC__/img/bitbug_favicon.ico">
-<link rel="Shortcut Icon" href="">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
@@ -69,7 +68,7 @@
         </li>
     </ul>
     <form class="form-inline navbar-form pull-right" method="post" action="{:U('Index/index')}">
-        <input class="form-control" type="text" placeholder="product name" name="itemname">
+        <input class="form-control" type="text" placeholder="product name" name="itemname" value="{$where['Iname'][1]}">
         <input value="1" type="hidden" name="searchtag">
         <button class="btn btn-success-outline" type="submit">Search</button>
     </form>
@@ -79,9 +78,10 @@
         <form method="post" action="{:U('Index/index')}" class="form-inline" style="font-size: 17px">
             <input value="1" type="hidden" name="searchtag">
             <div style="display: inline-block">
-                <label>Product Sort By:</label><span><input type="checkbox" name="reviews" value="reviews" class="checkbox">Reviews</span>
-                <span><input type="checkbox" name="rate" value="rate" class="checkbox">Rate</span>
-                <span><input type="checkbox" name="answered" value="answered" class="checkbox">Answered</span>
+                <label>Products Sort By:</label><span>
+                <input type="checkbox" name="reviews" value="reviews" class="checkbox" id="reviews">Reviews</span>
+                <span><input type="checkbox" name="rate" value="star" class="checkbox" id="star">Rate</span>
+                <span><input type="checkbox" name="answered" value="answered" class="checkbox" id="answered">Answered</span>
             </div>
             <div style="display: inline-block">
                 <label> Cate:</label>
@@ -91,8 +91,16 @@
                         <option value="{$name}">{$name}</option>
                     </foreach>
                 </select>
-                <select name="Isecond_cat" id="cate2" class="form-control form-control-sm" style="width: 140px"></select>
-                <select name="Ithird_cat" id="cate3" class="form-control form-control-sm" style="width: 140px"></select>
+                <select name="Isecond_cat" id="cate2" class="form-control form-control-sm" style="width: 140px">
+                    <foreach name="cate1" item="name">
+                        <option value="{$name}">{$name}</option>
+                    </foreach>
+                </select>
+                <select name="Ithird_cat" id="cate3" class="form-control form-control-sm" style="width: 140px">
+                    <foreach name="cate2" item="name">
+                        <option value="{$name}">{$name}</option>
+                    </foreach>
+                </select>
             </div>
             <div style="display: inline-block">
                 <!--<button type="button" class="btn btn-sm btn-success-outline" data-container="body" id="brandbtn" data-toggle="popover">-->
@@ -112,6 +120,9 @@
         <foreach name="items" item="item">
             <if condition="$item['iimg_url']">
                 <div class="card">
+                    <span class="label label-danger pull-right" style="position: relative;margin: 9px;">
+                        {$p*100+1+$key}
+                    </span>
                     <img class="card-img-top" data-src="holder.js/100%x160/" alt="Card image cap" src="{$item.iimg_url}">
                     <div class="card-block">
                         <h5 class="card-title">
@@ -195,9 +206,24 @@
     </div>
 
 </div>
+<footer>
+    <hr/>
+    <p style="text-align: center">
+        © 2016, 175.185.8.9/MiningAmazon.
+    </p>
+</footer>
 </body>
 <script>
+    var cate1="{$where['Ifirst_cat']}";
+    var cate2="{$where['Isecond_cat']}";
+    var cate3="{$where['Ithird_cat']}";
     $(function(){
+        $('#'+"{$sort['0']}").attr('checked',true);
+        $('#'+"{$sort['1']}").attr('checked',true);
+        $('#'+"{$sort['2']}").attr('checked',true);
+        $("select[name='Ifirst_cat']").val(cate1);
+        $("select[name='Isecond_cat']").val(cate2);
+        $("select[name='Ithird_cat']").val(cate3);
         $('#brandbtn').popover({
             trigger: 'manual',
             placement:'bottom',
@@ -222,12 +248,10 @@
     });
 
     function showBrand(){
-        debugger;
         var brandTable=$("#brandsection").html();
         return brandTable;
     }
     $("#cate1,#cate2,#cate3").change(function(){
-        debugger;
         var select=$(this).next();
         if(!select)
             return false;
@@ -242,7 +266,6 @@
             type:"post",
             data:{cate1value:cate1value,cate1name:cate1name,name:name,pcate1value:pcate1value,pname:pname},
             success:function(data){
-                debugger;
                 var str='<option value></option>';
                 $.each(data,function(i,n){
                     str+="<option value='"+ n.name+"'>"+n.name+"</option>";

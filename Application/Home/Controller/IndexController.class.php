@@ -8,24 +8,42 @@ class IndexController extends BaseController {
         $searchdata=I('post.');
         if($searchdata['searchtag']){
             $where=$this->getSearchCondition($searchdata);
+            $sort=$this->getSort($searchdata);
         }
-        $sort=$this->getSort($searchdata);
         $p=I('get.p');
         if(!$p)
-        {$_SESSION['where']=$where;}
+        {$_SESSION['where']=$where;
+            $_SESSION['sort']=$sort;}
         else{
+            $sort=$_SESSION['sort'];
             $where=$_SESSION['where'];
         }
-       $page=getpage($ITEM,$where,self::itemnum);
+        $page=getpage($ITEM,$where,self::itemnum);
         $this->items=$ITEM->where($where)->order($sort)->select();
-       $this->page=$page->show();
-      //  $this->brands=$ITEM->distinct('Ibrand')->order('Ibrand')->getField('ibrand',true) ;
         $this->cate=$ITEM->distinct('Ifirst_cat')->order('Ifirst_cat')->getField('ifirst_cat',true) ;
-        $this->display();
+        $this->page=$page->show();
+        //  $this->brands=$ITEM->distinct('Ibrand')->order('Ibrand')->getField('ibrand',true) ;
+        //------å½“æœ‰æ¡ä»¶æ—¶ï¼Œå°†æ¡ä»¶åœ¨ç°
+        $this->p=$p;
+        $this->sort=explode(',',str_replace(' ','',str_replace('desc','',$sort)));
+        $this->where=$where;
+        if($where['Ifirst_cat']){
+            $this->cate1=$ITEM->where(array('Ifirst_cat'=>$where['Ifirst_cat']))->order('Isecond_cat')->getField('isecond_cat',true) ;
+        }
+        if($where['Isecond_cat']){
+            if($where['Ifirst_cat'])
+                $this->cate2=$ITEM->where(array('Ifirst_cat'=>$where['Ifirst_cat'],'Isecond_cat'=>$where['Isecond_cat']))->order('Ithird_cat')->getField('ithird_cat',true) ;
+            else
+                $this->cate2=$ITEM->where(array('Isecond_cat'=>$where['Isecond_cat']))->order('Ithird_cat')->getField('ithird_cat',true) ;
+
+        }
+        //---------------
+
+        $this->display("Index/index");
     }
     private function getSort($data){
         if(!($data['reviews']||$data['rate']||$data['answered'])){
-            return array('reviews desc,star desc,answered desc');
+            return 'reviews desc,star desc,answered desc';
         }else{
             $sort='';
             if($data['reviews']){
@@ -43,12 +61,11 @@ class IndexController extends BaseController {
                 else
                     $sort.=$data['answered'].' desc';
             }
-            return array($sort);
+            return $sort;
         }
     }
 
     private function getSearchCondition($data){
-        //¸ù¾İÉÌÆ·ÃûËÑË÷
         $where=[];
         if($data['itemname']){
             $where['Iname']=array('like','%'.$data['itemname'].'%');

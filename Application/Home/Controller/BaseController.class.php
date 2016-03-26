@@ -8,5 +8,5 @@
 namespace Home\Controller;
 use Think\Controller;
 class BaseController extends Controller{
-    const itemnum=2;
+    const itemnum=100;
 }

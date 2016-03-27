@@ -6,10 +6,8 @@ class IndexController extends BaseController {
     public function index(){
         $ITEM=M('items');
         $searchdata=I('post.');
-        if($searchdata['searchtag']){
-            $where=$this->getSearchCondition($searchdata);
-            $sort=$this->getSort($searchdata);
-        }
+        $where=$this->getSearchCondition($searchdata);
+        $sort=$this->getSort($searchdata);
         $p=I('get.p');
         if(!$p)
         {$_SESSION['where']=$where;

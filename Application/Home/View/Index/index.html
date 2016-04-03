@@ -147,9 +147,9 @@
                         </p>
                         <p class="card-text">
                             <if condition="$item['idescription']">
-                                {$item['idescription']|substring=###,500}
+                                {$item['idescription']|substring=###,512}
                                 <else/>
-                                {$item['detail']|substring=###,500}
+                                {$item['detail']|substring=###,512}
                             </if>
                         </p>
                         <p class="card-text">

@@ -5,7 +5,7 @@ namespace Home\Controller;
 class IndexController extends BaseController {
     public function index(){
         $ITEM=M('items');
-        $searchdata=I('post.');
+        $searchdata=$_POST;
         $where=$this->getSearchCondition($searchdata);
         $sort=$this->getSort($searchdata);
         $p=I('get.p');
@@ -18,6 +18,8 @@ class IndexController extends BaseController {
         }
         $page=getpage($ITEM,$where,self::itemnum);
         $this->items=$ITEM->where($where)->order($sort)->select();
+       // $items=$ITEM->where($where)->order($sort)->buildsql();
+     //  die;
         $this->cate=$ITEM->distinct('Ifirst_cat')->order('Ifirst_cat')->getField('ifirst_cat',true) ;
         $this->page=$page->show();
         //  $this->brands=$ITEM->distinct('Ibrand')->order('Ibrand')->getField('ibrand',true) ;
@@ -26,13 +28,13 @@ class IndexController extends BaseController {
         $this->sort=explode(',',str_replace(' ','',str_replace('desc','',$sort)));
         $this->where=$where;
         if($where['Ifirst_cat']){
-            $this->cate1=$ITEM->where(array('Ifirst_cat'=>$where['Ifirst_cat']))->order('Isecond_cat')->getField('isecond_cat',true) ;
+            $this->cate1=$ITEM->distinct('Isecond_cat')->where(array('Ifirst_cat'=>$where['Ifirst_cat']))->order('Isecond_cat')->getField('isecond_cat',true) ;
         }
         if($where['Isecond_cat']){
             if($where['Ifirst_cat'])
-                $this->cate2=$ITEM->where(array('Ifirst_cat'=>$where['Ifirst_cat'],'Isecond_cat'=>$where['Isecond_cat']))->order('Ithird_cat')->getField('ithird_cat',true) ;
+                $this->cate2=$ITEM->distinct('Isecond_cat')->where(array('Ifirst_cat'=>$where['Ifirst_cat'],'Isecond_cat'=>$where['Isecond_cat']))->order('Ithird_cat')->getField('ithird_cat',true) ;
             else
-                $this->cate2=$ITEM->where(array('Isecond_cat'=>$where['Isecond_cat']))->order('Ithird_cat')->getField('ithird_cat',true) ;
+                $this->cate2=$ITEM->distinct('Isecond_cat')->where(array('Isecond_cat'=>$where['Isecond_cat']))->order('Ithird_cat')->getField('ithird_cat',true) ;
 
         }
         //---------------

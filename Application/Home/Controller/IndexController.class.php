@@ -4,7 +4,7 @@ namespace Home\Controller;
     header("Content-Type:text/html;charset=utf-8");
 class IndexController extends BaseController {
     public function index(){
-        $ITEM=M('items');
+        $ITEM=M('amazonitems');
         $searchdata=$_POST;
         $where=$this->getSearchCondition($searchdata);
         $sort=$this->getSort($searchdata);

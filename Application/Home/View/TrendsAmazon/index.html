@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">-->
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<!--<script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>-->
+<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
+<script src="__PUBLIC__/js/bootstrap.js"></script>
+<!--<script src="__PUBLIC__/js/umd/boot3-tp.js"></script>-->
+<link rel="stylesheet" href="__PUBLIC__/css/rateit.css">
+<script src="__PUBLIC__/js/jquery.rateit.min.js"></script>
+<link rel="Bookmark" href="__PUBLIC__/img/bitbug_favicon.ico">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <style>
+        .pagination > li > b{
+            position: relative;
+            float: left;
+            padding: .5rem .75rem;
+            margin-left: -1px;
+            line-height: 1.5;
+            color: #ccc;
+            text-decoration: none;
+        }
+        .pagination .rows{
+            margin-top: 53px;
+            display: block;
+        }
+        .a-text-strike{
+            text-decoration: line-through!important;
+        }
+        .popover {
+            position: absolute;
+            top: 115;
+            left: 0;
+            z-index: 1060;
+            display: none;
+            max-width: 2000px;
+            padding: 1px;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-decoration: none;
+            text-shadow: none;
+            text-transform: none;
+        }
+        #content {
+            position: relative;
+        }
+        #list {
+            position: relative;
+            z-index: 20;
+        }
+        ul.list-results {
+            border: solid 1px #ccc;
+            list-style: none;
+            margin: 0;
+            width: 100%;
+            border-bottom: none;
+            border-radius: 0 0 5px 5px;
+        }
+        ul.list-results li {
+            background-color: #fff;
+            padding: 1px 20px 17px 25px;
+            border-bottom: 1px solid #ccc;
+            position: relative;
+        }
+        ul.list-results.with-images li {
+            padding-left: 50px;
+        }
+        ul.list-results .headline {
+            display: inline-block;
+            margin-bottom: 2px;
+            text-overflow: ellipsis;
+        }
+        ul.list-results .ima {
+            float: left;
+            width: 80px;
+            max-height: 200px;
+            margin: 10px 0 -10px -85px;
+        }
+        ul.list-results .namer {
+            margin: 5px 0 0 5px;
+            float: left;
+        }
+        ul.list-results .headline small {
+            font-size: 13px;
+        }
+        ul.list-results .rank {
+            position: absolute;
+            right: 27px;
+            top: 50px;
+            font-size: 11px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="collapse" id="exCollapsingNavbar">
+    <div class="bg-inverse p-a ">
+        <h4>挖掘技术哪家强，中国山东找蓝翔</h4>
+        <span class="text-muted">深度挖掘亚马逊产品销售趋势</span>
+    </div>
+</div>
+<nav class="navbar navbar-light bg-faded">
+    <ul class="nav navbar-nav">
+        <a class="navbar-toggler navbar-brand" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar" href="jacascript:void(0)">
+            &#9776;
+        </a>
+        <li class="nav-item">
+            <a class="nav-link" href="{:U('Index/index')}">首页<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{:U('TrendsAmazon/index')}">TrendsAmazon's Data</a>
+        </li>
+    </ul>
+    <form class="form-inline navbar-form pull-right" method="post" action="{:U('TrendsAmazon/index')}">
+        <input class="form-control" type="text" placeholder="product name" name="itemname" value="{$where['Iname'][1]}">
+        <input value="1" type="hidden" name="searchtag">
+        <button class="btn btn-success-outline" type="submit">Search</button>
+    </form>
+</nav>
+<div class="container" style="margin-top: 15px">
+    <div class="row">
+        <div class="col-md-12" id="content">
+            <div class="col-md-7" id="list" data-url="/products/list">
+                <ul class="list-results with-images">
+                    <foreach name="items" item="product">
+                        <li>
+                            <div class="headline" style="max-width: 100%;">
+                                <div class="ima">
+                                    <img src="{$product.iimg_url}" width="80">
+
+                                </div>
+
+                                <a class="list-item" href="{$product.iurl}">
+									<span class="namer">
+										{$product.iname}
+									</span>
+                                </a>
+                                <br>
+							<span class="namer">
+                            <small>
+                                <b>Category:</b><a href="/products?keyword={$product.icategory}" title="See all trends product in this categories">{$product.icategory}</a>
+                                <br>
+
+                                <b><img src="https://cdn4.iconfinder.com/data/icons/sketchdock-ecommerce-icons/barcode.png" title="ASIN">ASIN:</b>{$product.asin}
+                                <b><img src="https://cdn4.iconfinder.com/data/icons/de-munich-icon-pack/32x32/cost.png" width="20" title="List Price">Price:</b>{$product.iprice}
+                                <img src="https://cdn2.iconfinder.com/data/icons/once-again/48/Shop.png" width="20"><a href="http://www.amazon.com/dp/offer-listing/{$product.asin}" title="See all list sellers today" target="_blank">{$product.sellers} Sellers</a>
+                            </small>
+							</span>
+                                <span class="rank"><b>Rank:</b>in computing</span>
+                            </div>
+                        </li>
+                    </foreach>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-12 col-lg-12" style="text-align: right">
+            <nav>
+                {$page}
+            </nav>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

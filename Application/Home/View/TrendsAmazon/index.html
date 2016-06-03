@@ -123,7 +123,21 @@
 </nav>
 <div class="container" style="margin-top: 15px">
     <div class="row">
-        <div class="col-md-12" id="content">
+        <div class="col-md-12" style="text-align: right;padding-bottom: 10px;border-bottom: 1px solid #ccc">
+            <form method="post" action="{:U('TrendsAmazon/index')}">
+                分类：<select name="category">
+                <foreach name="cate" item="v">
+                    <option>{$v}</option>
+                </foreach>
+            </select>
+                排名：<input type="number" name="beg">~<input type="number" name="end">
+                <button type="submit" class="btn btn-sm btn-info" data-container="body">
+                    Go</button>
+            </form>
+
+        </div>
+
+        <div class="col-md-12" id="content" style="padding-top: 10px">
             <div class="col-md-7" id="list" data-url="/products/list">
                 <ul class="list-results with-images">
                     <foreach name="items" item="product">
@@ -134,7 +148,7 @@
 
                                 </div>
 
-                                <a class="list-item" href="{:U('TrendsAmazon/productDetail',array('asin'=>$product['asin']))}" target="iframeContent">
+                                <a class="list-item" href="{:U('TrendsAmazon/productDetail',array('id'=>$product['id'],'asin'=>$product['asin']))}" target="iframeContent">
 									<span class="namer">
 										{$product.iname}
 									</span>
@@ -142,7 +156,7 @@
                                 <br>
 							<span class="namer">
                             <small>
-                                <b>Category:</b><a href="{:U('TrendsAmazon/index',array('keyword'=>$product.icategory))}" title="See all trends product in this categories">{$product.icategory}</a>
+                                <b>Category:</b><a href="{:U('TrendsAmazon/index',array('category'=>$product['icategory']))}" title="See all trends product in this categories">{$product.icategory}</a>
                                 <br>
 
                                 <b><img src="https://cdn4.iconfinder.com/data/icons/sketchdock-ecommerce-icons/barcode.png" title="ASIN">ASIN:</b>{$product.asin}
@@ -174,6 +188,13 @@
         </div>
     </div>
 </div>
+<script>
+    $(function(){
+        $("select[name='category']").val("{$icate}");
+        $("input[name='beg']").val("{$beg}");
+        $("input[name='end']").val("{$end}");
+    })
+</script>
 <script language="javascript" type="text/javascript">
     var getFFVersion=navigator.userAgent.substring(navigator.userAgent.indexOf("Firefox")).split("/")[1];
     //extra height in px to add to iframe in FireFox 1.0+ browsers
@@ -206,5 +227,6 @@
         }
     }
 </script>
+
 </body>
 </html>

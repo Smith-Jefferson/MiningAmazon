@@ -134,7 +134,7 @@
 
                                 </div>
 
-                                <a class="list-item" href="{$product.iurl}">
+                                <a class="list-item" href="{:U('TrendsAmazon/productDetail',array('asin'=>$product['asin']))}" target="iframeContent">
 									<span class="namer">
 										{$product.iname}
 									</span>
@@ -142,7 +142,7 @@
                                 <br>
 							<span class="namer">
                             <small>
-                                <b>Category:</b><a href="/products?keyword={$product.icategory}" title="See all trends product in this categories">{$product.icategory}</a>
+                                <b>Category:</b><a href="{:U('TrendsAmazon/index',array('keyword'=>$product.icategory))}" title="See all trends product in this categories">{$product.icategory}</a>
                                 <br>
 
                                 <b><img src="https://cdn4.iconfinder.com/data/icons/sketchdock-ecommerce-icons/barcode.png" title="ASIN">ASIN:</b>{$product.asin}
@@ -150,12 +150,18 @@
                                 <img src="https://cdn2.iconfinder.com/data/icons/once-again/48/Shop.png" width="20"><a href="http://www.amazon.com/dp/offer-listing/{$product.asin}" title="See all list sellers today" target="_blank">{$product.sellers} Sellers</a>
                             </small>
 							</span>
-                                <span class="rank"><b>Rank:</b>in computing</span>
+                                <span class="rank"><b>Rank:</b>{$product.rank}</span>
                             </div>
                         </li>
                     </foreach>
 
                 </ul>
+            </div>
+            <div class="col-md-5">
+                <iframe  frameborder="0" src="" marginheight="0" marginwidth="0" noresize
+                         scrolling="no" id="iframe" name="iframeContent"  width="100%" height="100"
+                         onload="{dyniframesize('iframe');}">
+                </iframe>
             </div>
         </div>
     </div>
@@ -168,5 +174,37 @@
         </div>
     </div>
 </div>
+<script language="javascript" type="text/javascript">
+    var getFFVersion=navigator.userAgent.substring(navigator.userAgent.indexOf("Firefox")).split("/")[1];
+    //extra height in px to add to iframe in FireFox 1.0+ browsers
+    var FFextraHeight=getFFVersion>=0.1? 16 : 0;
+    function dyniframesize(iframename)
+    {
+        var pTar = null;
+        if (document.getElementById)
+        {
+            pTar = document.getElementById(iframename);
+        }
+        else
+        {
+            eval('pTar = ' + iframename + ';');
+        }
+        if (pTar && !window.opera)
+        {
+            //begin resizing iframe
+            pTar.style.display="block";
+            if (pTar.contentDocument && pTar.contentDocument.body.offsetHeight)
+            {
+                //ns6 syntax
+                pTar.height = pTar.contentDocument.body.offsetHeight+FFextraHeight;
+            }
+            else if (pTar.Document && pTar.Document.body.scrollHeight)
+            {
+                //ie5+ syntax
+                pTar.height = pTar.Document.body.scrollHeight;
+            }
+        }
+    }
+</script>
 </body>
 </html>

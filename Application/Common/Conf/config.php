@@ -8,6 +8,7 @@ return array(
     'DB_PWD'                =>  '',          // 密码
     'DB_PORT'               =>  '3306',        // 端口
     'DB_PREFIX'             =>  '',    // 数据库表前缀
-
+    'URL_MODEL'=>2,
+    'URL_ROUTER_ON'=>true,
     //
 );

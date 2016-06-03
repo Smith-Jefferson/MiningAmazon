@@ -13,6 +13,15 @@ class TrendsAmazonController extends BaseController {
         $data=I('post.');
         $ITEM=M('trendsamazon');
         $where=self::getCondition($data);
+        $p=I('get.p');
+        if(!$p)
+        {
+            $_SESSION['where']=$where;
+        }
+
+        else{
+            $where=$_SESSION['where'];
+        }
         $page=getpage($ITEM,$where,self::itemnum);
         $this->items=$ITEM->where($where)->select();
         $this->page=$page->show();
@@ -30,5 +39,10 @@ class TrendsAmazonController extends BaseController {
     }
     public static function getSort(){
 
+    }
+
+    public function productDetail($asin){
+        $this->product=M('trendsamazon')->where()->find();
+       $this->assign('detail',M('trendsdetail')->where(array('asin'=>$asin))->find())->display() ;
     }
 }

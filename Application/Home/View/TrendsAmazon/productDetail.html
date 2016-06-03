@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">-->
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<!--<script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>-->
+<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
+<script src="__PUBLIC__/js/bootstrap.js"></script>
+<!--<script src="__PUBLIC__/js/umd/boot3-tp.js"></script>-->
+<link rel="stylesheet" href="__PUBLIC__/css/rateit.css">
+<script src="__PUBLIC__/js/jquery.rateit.min.js"></script>
+<link rel="Bookmark" href="__PUBLIC__/img/bitbug_favicon.ico">
+<script src="//cdn.bootcss.com/highcharts/4.2.5/highcharts.js"></script>
+<script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/exporting.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>product detail</title>
+</head>
+<body>
+<div class="container">
+
+    <div class="container-fuid">
+
+
+        <div class="header well">
+            <h4>{$product.asin} <a href="http://www.amazon.com/dp/{$product.asin}" target="_blank">See product details</a></h4>
+
+        </div>
+        <div class="view-messages">
+
+
+        </div>
+
+
+        <div class="view-content">
+
+            <ul class="nav nav-pills">
+                {$product.iname}
+            </ul>
+            <div class="tab-content">
+                <div class="section">
+
+                    <div class="section">
+                        <div class="field control-group col-md-2 col-sm-12">
+                            best sellers rank:
+                            <div class="rateit" data-rateit-value="{$detail.best_sellers_rank}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                            <br>
+                            sellers count:
+                            <div class="rateit" data-rateit-value="{$detail.sellers_count}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                           	<br>
+                            Review count：
+                            <div class="rateit" data-rateit-value="{$detail.review_count}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                            <br>
+                            Best review:
+                            <div class="rateit" data-rateit-value="{$detail.best_review}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+
+                            rank up or down:
+                            <div class="rateit" data-rateit-value="{$detail.rank_up_down}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                            	<br>
+
+                            review up or down:
+                            <div class="rateit" data-rateit-value="{$detail.review_up_down}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                            <br>
+                            good review up or down：
+                            <div class="rateit" data-rateit-value="{$detail.good_review_up_down}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                          	<br>
+
+
+
+                        </div>
+                        <div class="field control-group col-md-3 col-sm-12">
+
+                            <div class="image default">
+                                <img src="{$product.iimg_url}">
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--<div class="zz">-->
+                        <!--<h3>Composite score MISSING</h3><h3>-->
+                        <!--<img src="/star/s4.png">-->
+                    <!--</h3>-->
+                        <!--<img src="/star/c.png" width="20" title="please notice copyright before sell">please notice copyright before sell-->
+                    </div>
+
+                    <div class="zz">
+                        <table class="table table-condensed table-bordered">
+                            <tbody><tr>
+
+                                <th>RANK</th>
+                                <th>Price</th>
+                                <th>Seller Count</th>
+                                <th>Review Count</th>
+                                <th>Categories</th>
+                            </tr>
+
+                            <tr>
+
+                                <td class="muted">{$product.rank}</td>
+                                <td class="muted">{$product.iprice}</td>
+                                <td class="muted">
+                                    <a href="http://www.amazon.com/gp/offer-listing/{$product.asin}" target="_blank">{$product.sellers}</a></td>
+                                <td class="muted"><a href="http://www.amazon.com/product-reviews/{$product.asin}" target="_blank">{$detail.review}</a></td>
+                                <td class="muted">
+                                    <a href="{:U('TrendsAmazon/index',array('keyword'=>$product.icategory))}" target="_blank">
+                                        {$product.icategory}
+                                    </a>
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+            <script>
+                Highcharts.theme = {
+                    colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee",
+                        "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+                    chart: {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, 'rgb(96, 96, 96)'],
+                                [1, 'rgb(16, 16, 16)']
+                            ]
+                        },
+                        borderWidth: 0,
+                        borderRadius: 0,
+                        plotBackgroundColor: null,
+                        plotShadow: false,
+                        plotBorderWidth: 0
+                    },
+                    title: {
+                        style: {
+                            color: '#FFF',
+                            font: '16px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+                        }
+                    },
+                    subtitle: {
+                        style: {
+                            color: '#DDD',
+                            font: '12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+                        }
+                    },
+                    xAxis: {
+                        gridLineWidth: 0,
+                        lineColor: '#999',
+                        tickColor: '#999',
+                        labels: {
+                            style: {
+                                color: '#999',
+                                fontWeight: 'bold'
+                            }
+                        },
+                        title: {
+                            style: {
+                                color: '#AAA',
+                                font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        alternateGridColor: null,
+                        minorTickInterval: null,
+                        gridLineColor: 'rgba(255, 255, 255, .1)',
+                        minorGridLineColor: 'rgba(255,255,255,0.07)',
+                        lineWidth: 0,
+                        tickWidth: 0,
+                        labels: {
+                            style: {
+                                color: '#999',
+                                fontWeight: 'bold'
+                            }
+                        },
+                        title: {
+                            style: {
+                                color: '#AAA',
+                                font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+                            }
+                        }
+                    },
+                    legend: {
+                        itemStyle: {
+                            color: '#CCC'
+                        },
+                        itemHoverStyle: {
+                            color: '#FFF'
+                        },
+                        itemHiddenStyle: {
+                            color: '#333'
+                        }
+                    },
+                    labels: {
+                        style: {
+                            color: '#CCC'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, 'rgba(96, 96, 96, .8)'],
+                                [1, 'rgba(16, 16, 16, .8)']
+                            ]
+                        },
+                        borderWidth: 0,
+                        style: {
+                            color: '#FFF'
+                        }
+                    },
+
+
+                    plotOptions: {
+                        series: {
+                            nullColor: '#444444'
+                        },
+                        line: {
+                            dataLabels: {
+                                color: '#CCC'
+                            },
+                            marker: {
+                                lineColor: '#333'
+                            }
+                        },
+                        spline: {
+                            marker: {
+                                lineColor: '#333'
+                            }
+                        },
+                        scatter: {
+                            marker: {
+                                lineColor: '#333'
+                            }
+                        },
+                        candlestick: {
+                            lineColor: 'white'
+                        }
+                    },
+
+                    toolbar: {
+                        itemStyle: {
+                            color: '#CCC'
+                        }
+                    },
+
+                    navigation: {
+                        buttonOptions: {
+                            symbolStroke: '#DDDDDD',
+                            hoverSymbolStroke: '#FFFFFF',
+                            theme: {
+                                fill: {
+                                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                                    stops: [
+                                        [0.4, '#606060'],
+                                        [0.6, '#333333']
+                                    ]
+                                },
+                                stroke: '#000000'
+                            }
+                        }
+                    },
+
+                    // scroll charts
+                    rangeSelector: {
+                        buttonTheme: {
+                            fill: {
+                                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                                stops: [
+                                    [0.4, '#888'],
+                                    [0.6, '#555']
+                                ]
+                            },
+                            stroke: '#000000',
+                            style: {
+                                color: '#CCC',
+                                fontWeight: 'bold'
+                            },
+                            states: {
+                                hover: {
+                                    fill: {
+                                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                                        stops: [
+                                            [0.4, '#BBB'],
+                                            [0.6, '#888']
+                                        ]
+                                    },
+                                    stroke: '#000000',
+                                    style: {
+                                        color: 'white'
+                                    }
+                                },
+                                select: {
+                                    fill: {
+                                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                                        stops: [
+                                            [0.1, '#000'],
+                                            [0.3, '#333']
+                                        ]
+                                    },
+                                    stroke: '#000000',
+                                    style: {
+                                        color: 'yellow'
+                                    }
+                                }
+                            }
+                        },
+                        inputStyle: {
+                            backgroundColor: '#333',
+                            color: 'silver'
+                        },
+                        labelStyle: {
+                            color: 'silver'
+                        }
+                    },
+
+                    navigator: {
+                        handles: {
+                            backgroundColor: '#666',
+                            borderColor: '#AAA'
+                        },
+                        outlineColor: '#CCC',
+                        maskFill: 'rgba(16, 16, 16, 0.5)',
+                        series: {
+                            color: '#7798BF',
+                            lineColor: '#A6C7ED'
+                        }
+                    },
+
+                    scrollbar: {
+                        barBackgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0.4, '#888'],
+                                [0.6, '#555']
+                            ]
+                        },
+                        barBorderColor: '#CCC',
+                        buttonArrowColor: '#CCC',
+                        buttonBackgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0.4, '#888'],
+                                [0.6, '#555']
+                            ]
+                        },
+                        buttonBorderColor: '#CCC',
+                        rifleColor: '#FFF',
+                        trackBackgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#000'],
+                                [1, '#333']
+                            ]
+                        },
+                        trackBorderColor: '#666'
+                    },
+
+                    // special colors for some of the demo examples
+                    legendBackgroundColor: 'rgba(48, 48, 48, 0.8)',
+                    background2: 'rgb(70, 70, 70)',
+                    dataLabelsColor: '#444',
+                    textColor: '#E0E0E0',
+                    maskColor: 'rgba(255,255,255,0.3)'
+                };
+            </script>
+                <div id="ranktrends" style="height: 200px; margin-left:-20px;margin-right:-20px;padding-top:20px;" data-highcharts-chart="0">
+
+                </div>
+
+                <script>
+
+                    var chart = new Highcharts.Chart({
+                        colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee",
+                            "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+                        chart: {
+                            backgroundColor: {
+                                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                                stops: [
+                                    [0, 'rgb(96, 96, 96)'],
+                                    [1, 'rgb(16, 16, 16)']
+                                ]
+                            },
+                            renderTo: 'ranktrends',
+                            type: 'line',
+                            borderWidth: 0,
+                            borderRadius: 0,
+                            plotBackgroundColor: null,
+                            plotShadow: false,
+                            plotBorderWidth: 0,
+                            zoomType:'xy',
+                        },
+                        title: {
+                            style: {
+                                color: '#FFF',
+                                font: '16px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+                            },
+                            text: 'best sellers rank trends'
+                        },
+                        plotOptions: {
+                            series: {
+                                nullColor: '#444444'
+                            },
+                            line: {
+                                dataLabels: {
+                                    color: '#CCC'
+                                },
+                                marker: {
+                                    lineColor: '#333'
+                                }
+                            },
+                            spline: {
+                                marker: {
+                                    lineColor: '#333'
+                                }
+                            },
+                            scatter: {
+                                marker: {
+                                    lineColor: '#333'
+                                }
+                            },
+                            candlestick: {
+                                lineColor: 'white'
+                            }
+                        },
+                        navigation: {
+                            buttonOptions: {
+                                symbolStroke: '#DDDDDD',
+                                hoverSymbolStroke: '#FFFFFF',
+                                theme: {
+                                    fill: {
+                                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                                        stops: [
+                                            [0.4, '#606060'],
+                                            [0.6, '#333333']
+                                        ]
+                                    },
+                                    stroke: '#000000'
+                                }
+                            }
+                        },
+                        subtitle: {
+                            text: 'data comefrom：trendsamazon.com drog big，Reset zoom reset',
+
+                        },
+                        xAxis: {
+                            gridLineWidth: 0,
+                            lineColor: '#999',
+                            tickColor: '#999',
+                            labels: {
+                                style: {
+                                    color: '#999',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            title: {
+                                style: {
+                                    color: '#AAA',
+                                    font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+                                }
+                            },
+                            categories: ['02-12','02-17','02-22','02-27','03-03','03-08','03-13','03-18','03-23','03-28','04-02','04-07','04-12','04-17','04-22','04-27','05-02','05-07','05-13']
+                        },
+                        yAxis: {
+                            alternateGridColor: null,
+                            minorTickInterval: null,
+                            gridLineColor: 'rgba(255, 255, 255, .1)',
+                            minorGridLineColor: 'rgba(255,255,255,0.07)',
+                            lineWidth: 0,
+                            tickWidth: 0,
+                            labels: {
+                                style: {
+                                    color: '#999',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            title: {
+                                style: {
+                                    color: '#AAA',
+                                    font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+                                },
+                                text: 'RANK(best sellers)'
+                            }
+                        },
+
+                        tooltip: {
+                            backgroundColor: {
+                                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                                stops: [
+                                    [0, 'rgba(96, 96, 96, .8)'],
+                                    [1, 'rgba(16, 16, 16, .8)']
+                                ]
+                            },
+                            borderWidth: 0,
+                            style: {
+                                color: '#FFF'
+                            },
+                            formatter: function() {
+                                return '<b>'+ this.series.name +'</b><br/>'+
+                                        this.x +': '+ this.y +'';
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            x: 0,
+                            y: 100,
+                            borderWidth: 0
+                        },
+                        credits: {
+                            enabled : true,
+                            href : "http://trendsamazon.com",
+                            text : "trendsamazon.com"
+                        },
+                        navigator: {
+                            handles: {
+                                backgroundColor: '#666',
+                                borderColor: '#AAA'
+                            },
+                            outlineColor: '#CCC',
+                            maskFill: 'rgba(16, 16, 16, 0.5)',
+                            series: {
+                                color: '#7798BF',
+                                lineColor: '#A6C7ED'
+                            }
+                        },
+
+                        scrollbar: {
+                            barBackgroundColor: {
+                                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                                stops: [
+                                    [0.4, '#888'],
+                                    [0.6, '#555']
+                                ]
+                            },
+                            barBorderColor: '#CCC',
+                            buttonArrowColor: '#CCC',
+                            buttonBackgroundColor: {
+                                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                                stops: [
+                                    [0.4, '#888'],
+                                    [0.6, '#555']
+                                ]
+                            },
+                            buttonBorderColor: '#CCC',
+                            rifleColor: '#FFF',
+                            trackBackgroundColor: {
+                                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                                stops: [
+                                    [0, '#000'],
+                                    [1, '#333']
+                                ]
+                            },
+                            trackBorderColor: '#666'
+                        },
+                        legendBackgroundColor: 'rgba(48, 48, 48, 0.8)',
+                        background2: 'rgb(70, 70, 70)',
+                        dataLabelsColor: '#444',
+                        textColor: '#E0E0E0',
+                        maskColor: 'rgba(255,255,255,0.3)',
+                        series: [{
+                            name: 'rank',
+                            data: [
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                1,
+                                1]
+                        }]
+                    });
+
+
+                </script>
+
+                <div id="ranktrends1" style="height: 200px;  margin-left:-20px;margin-right:-20px;padding-top:20px;" data-highcharts-chart="1">
+
+                </div>
+
+                <script>
+
+                    var chart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: 'ranktrends1',
+                            type: 'line',
+                            marginRight: 130,
+                            marginBottom: 25
+                        },
+                        chart: {
+                            renderTo: 'ranktrends1',
+                            type: 'line',
+                            zoomType:'xy',
+                        },
+                        title: {
+                            text: 'Price Trends',
+                        },
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: false
+                            }
+                        },
+
+                        subtitle: {
+                            color: '#fff',
+                            text: 'data comefrom：trendsamazon.com drog big，Reset zoom reset',
+
+                        },
+                        xAxis: {
+                            categories: ['02-12','02-17','02-22','02-27','03-03','03-08','03-13','03-18','03-23','03-28','04-02','04-07','04-12','04-17','04-22','04-27','05-02','05-07','05-13']
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Price trends'
+                            },
+                            plotLines: [{
+                                value: 0,
+                                width: 1,
+                                color: '#0093dd'
+                            }]
+                        },
+                        tooltip: {
+                            formatter: function() {
+                                return '<b>'+ this.series.name +'</b><br/>'+
+                                        this.x +': '+ this.y +'';
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            x: 0,
+                            y: 100,
+                            borderWidth: 0
+                        },
+                        credits: {
+                            enabled : true,
+                            href : "http://trendsamazon.com",
+                            text : "trendsamazon.com"
+                        },
+
+
+                        series: [{
+                            name: 'Price',
+                            data: [
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                10.99,
+                                10.99,
+                                10.99]
+                        }]
+                    });
+
+
+                </script>
+
+                <div id="ranktrends2" style="height: 200px; margin-left:-20px;margin-right:-20px;padding-top:20px;" data-highcharts-chart="2">
+
+                </div>
+
+                <script>
+
+                    var chart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: 'ranktrends2',
+                            type: 'line',
+                            marginRight: 130,
+                            marginBottom: 25
+                        },
+                        chart: {
+                            renderTo: 'ranktrends2',
+                            type: 'line',
+                            zoomType:'xy',
+                        },
+                        title: {
+                            text: 'Sellers Count',
+                        },
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: false
+                            }
+                        },
+
+                        subtitle: {
+                            text: 'data comefrom：trendsamazon.com drog big，Reset zoom reset',
+
+                        },
+                        xAxis: {
+                            categories: ['02-12','02-17','02-22','02-27','03-03','03-08','03-13','03-18','03-23','03-28','04-02','04-07','04-12','04-17','04-22','04-27','05-02','05-07','05-13']
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Sellers Count'
+                            },
+                            plotLines: [{
+                                value: 0,
+                                width: 1,
+                                color: '#0093dd'
+                            }]
+                        },
+                        tooltip: {
+                            formatter: function() {
+                                return '<b>'+ this.series.name +'</b><br/>'+
+                                        this.x +': '+ this.y +'';
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            x: 0,
+                            y: 100,
+                            borderWidth: 0
+                        },
+                        credits: {
+                            enabled : true,
+                            href : "http://trendsamazon.com",
+                            text : "trendsamazon.com"
+                        },
+
+
+                        series: [{
+                            name: 'Sellers',
+                            data: [
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                2]
+                        }]
+                    });
+
+
+                </script>
+
+
+                <div id="review" style="height: 200px;  margin-left:-20px;margin-right:-20px;padding-top:20px;" data-highcharts-chart="3">
+
+                </div>
+
+                <script>
+
+                    var chart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: 'review',
+                            type: 'line',
+                            marginRight: 130,
+                            marginBottom: 25
+                        },
+                        chart: {
+                            renderTo: 'review',
+                            type: 'line',
+                            zoomType:'xy',
+                        },
+                        title: {
+                            text: 'Review Count',
+                        },
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: false
+                            }
+                        },
+
+                        subtitle: {
+                            text: 'data comefrom：trendsamazon.com drog big，Reset zoom reset',
+
+                        },
+                        xAxis: {
+                            categories: ['02-12','02-17','02-22','02-27','03-03','03-08','03-13','03-18','03-23','03-28','04-02','04-07','04-12','04-17','04-22','04-27','05-02','05-07','05-13']
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Review Count'
+                            },
+                            plotLines: [{
+                                value: 0,
+                                width: 1,
+                                color: '#0093dd'
+                            }]
+                        },
+                        tooltip: {
+                            formatter: function() {
+                                return '<b>'+ this.series.name +'</b><br/>'+
+                                        this.x +': '+ this.y +'';
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            x: 0,
+                            y: 100,
+                            borderWidth: 0
+                        },
+                        credits: {
+                            enabled : true,
+                            href : "http://trendsamazon.com",
+                            text : "trendsamazon.com"
+                        },
+
+
+                        series: [{
+                            name: 'Review',
+                            data: [
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                20,
+                                20,
+                                20]
+                        }]
+                    });
+
+
+                </script>
+
+
+                <div id="45star" style="height: 200px; margin-left:-20px;margin-right:-20px;padding-top:20px;" data-highcharts-chart="4">
+
+                </div>
+
+                <script>
+
+                    var chart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: '45star',
+                            type: 'line',
+                            marginRight: 130,
+                            marginBottom: 25
+                        },
+                        chart: {
+                            renderTo: '45star',
+                            type: 'line',
+                            zoomType:'xy',
+                        },
+                        title: {
+                            text: '4,5star good review Percentage',
+                        },
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: false
+                            }
+                        },
+
+                        subtitle: {
+                            text: 'data comefrom：trendsamazon.com drog big，Reset zoom reset',
+
+                        },
+                        xAxis: {
+                            categories: ['02-12','02-17','02-22','02-27','03-03','03-08','03-13','03-18','03-23','03-28','04-02','04-07','04-12','04-17','04-22','04-27','05-02','05-07','05-13']
+                        },
+                        yAxis: {
+                            title: {
+                                text: '4,5star good review Percentage'
+                            },
+                            plotLines: [{
+                                value: 0,
+                                width: 1,
+                                color: '#FF4000'
+                            }]
+                        },
+                        tooltip: {
+                            formatter: function() {
+                                return '<b>'+ this.series.name +'</b><br/>'+
+                                        this.x +': '+ this.y +'';
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            x: 0,
+                            y: 100,
+                            borderWidth: 0
+                        },
+                        credits: {
+                            enabled : true,
+                            href : "http://trendsamazon.com",
+                            text : "trendsamazon.com"
+                        },
+
+
+                        series: [{
+                            name: '5star',
+                            data: [
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                85,
+                                85,
+                                85]
+                        },{
+
+                            name: '4star',
+                            data: [
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                10,
+                                10,
+                                10]
+                        }],
+
+
+                    });
+
+
+                </script>
+
+
+                <div id="container44" style="height: 200px;  margin-left:-20px;margin-right:-20px;padding-top:20px;" data-highcharts-chart="5">
+
+                </div>
+
+                <script>
+                    $(function () {
+
+                        var colors = Highcharts.getOptions().colors,
+                                categories = ['5star good review', '4star good review', '3star review', '2star bad review', '1star bad review'],
+                                name = 'Total 20 reviews',
+                                data = [{
+                                    y: 85,
+                                    color: colors[0]
+
+                                }, {
+                                    y: 10,
+                                    color: colors[1]
+
+                                }, {
+                                    y: 0,
+                                    color: colors[2]
+
+                                }, {
+                                    y: 0,
+                                    color: colors[3]
+
+                                }, {
+                                    y: 5,
+                                    color: colors[4]
+
+                                }];
+
+                        function setChart(name, categories, data, color) {
+                            chart.xAxis[0].setCategories(categories, false);
+                            chart.series[0].remove(false);
+                            chart.addSeries({
+                                name: name,
+                                data: data,
+                                color: color || 'white'
+                            }, false);
+                            chart.redraw();
+                        }
+
+                        var chart = $('#container44').highcharts({
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: ''
+                            },
+                            subtitle: {
+                                text: ''
+                            },
+                            xAxis: {
+                                categories: categories
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Costomer review Percentage'
+                                }
+                            },
+                            plotOptions: {
+                                column: {
+                                    cursor: 'pointer',
+                                    point: {
+                                        events: {
+                                            click: function() {
+                                                var drilldown = this.drilldown;
+                                                if (drilldown) { // drill down
+                                                    setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
+                                                } else { // restore
+                                                    setChart(name, categories, data);
+                                                }
+                                            }
+                                        }
+                                    },
+                                    dataLabels: {
+                                        enabled: true,
+                                        color: colors[0],
+                                        style: {
+                                            fontWeight: 'bold'
+                                        },
+                                        formatter: function() {
+                                            return this.y +'%';
+                                        }
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                formatter: function() {
+                                    var point = this.point,
+                                            s = this.x +':<b>'+ this.y +'% of 20 reviews</b><br/>';
+                                    if (point.drilldown) {
+                                        s += 'Click to view '+ point.category +' versions';
+                                    } else {
+                                        s += 'Click to return';
+                                    }
+                                    return s;
+                                }
+                            },
+                            credits: {
+                                enabled : true,
+                                href : "http://trendsamazon.com",
+                                text : "trendsamazon.com"
+                            },
+                            series: [{
+                                name: name,
+                                data: data,
+                                color: 'white'
+                            }],
+                            exporting: {
+                                enabled: false
+                            }
+                        })
+                                .highcharts(); // return chart
+                    });
+                </script>
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+</div>
+</body>
+</html>

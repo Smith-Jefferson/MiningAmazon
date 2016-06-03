@@ -8,5 +8,6 @@
 define('APP_NAME','Application');
 define('APP_PATH','./Application/');
 define('APP_DEBUG','TRUE');
+define('BIND_MODULE','Home');
 include './ThinkPHP/ThinkPHP.php';
 header("Content-Type:text/html;charset=utf-8");

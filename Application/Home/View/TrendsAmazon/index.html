@@ -115,21 +115,17 @@
             <a class="nav-link" href="{:U('TrendsAmazon/index')}">TrendsAmazon's Data</a>
         </li>
     </ul>
-    <form class="form-inline navbar-form pull-right" method="post" action="{:U('TrendsAmazon/index')}">
-        <input class="form-control" type="text" placeholder="product name" name="itemname" value="{$where['Iname'][1]}">
-        <input value="1" type="hidden" name="searchtag">
-        <button class="btn btn-success-outline" type="submit">Search</button>
-    </form>
+    <!--<form class="form-inline navbar-form pull-right" method="post" action="{:U('TrendsAmazon/index')}">-->
+        <!--<input class="form-control" type="text" placeholder="product name" name="itemname" value="{$where['Iname'][1]}">-->
+        <!--<input value="1" type="hidden" name="searchtag">-->
+        <!--<button class="btn btn-success-outline" type="submit">Search</button>-->
+    <!--</form>-->
 </nav>
 <div class="container" style="margin-top: 15px">
     <div class="row">
         <div class="col-md-12" style="text-align: right;padding-bottom: 10px;border-bottom: 1px solid #ccc">
             <form method="post" action="{:U('TrendsAmazon/index')}">
-                分类：<select name="category">
-                <foreach name="cate" item="v">
-                    <option>{$v}</option>
-                </foreach>
-            </select>
+                关键字：<input type="text" name="itemname">
                 排名：<input type="number" name="beg">~<input type="number" name="end">
                 <button type="submit" class="btn btn-sm btn-info" data-container="body">
                     Go</button>
@@ -190,7 +186,7 @@
 </div>
 <script>
     $(function(){
-        $("select[name='category']").val("{$icate}");
+        $("input[name='itemname']").val("{$icate}");
         $("input[name='beg']").val("{$beg}");
         $("input[name='end']").val("{$end}");
     })

@@ -13,7 +13,7 @@ class TrendsAmazonController extends BaseController {
         $data=I('post.');
         $data=array_merge($data,I('get.'));
         $ITEM=M('trendsamazon');
-        $this->cate=$ITEM->distinct(true)->getField('icategory',true);
+       // $this->cate=$ITEM->distinct(true)->getField('icategory',true);
         $where=self::getCondition($data);
         $p=I('get.p');
         if(!$p)
@@ -27,7 +27,7 @@ class TrendsAmazonController extends BaseController {
         $page=getpage($ITEM,$where,self::itemnum);
         $this->items=$ITEM->where($where)->order('rank')->select();
         $this->page=$page->show();
-        //½«Ìõ¼þÔÚÒ³ÃæÔÙÏÖ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if(count($where['rank'][1])==2){
             $this->beg=$where['rank'][1][0];
             $this->end=$where['rank'][1][1];
@@ -35,7 +35,10 @@ class TrendsAmazonController extends BaseController {
             $this->beg=$where['rank'][1];
             $this->end=$where['rank'][1];
         }
-        $this->icate=$where['Icategory'];
+        if($where['Iname']){
+            $this->icate=str_replace("%","",$where['Iname'][1]);
+        }
+
         $this->display();
     }
     public static function getCondition($data){
@@ -64,7 +67,7 @@ class TrendsAmazonController extends BaseController {
     }
 
     public function productDetail(){
-        $asin=I('asin');
+        $asin=str_replace("+","",trim(I('asin')));
         $id=I('id');
         $this->product=M('trendsamazon')->where(array('id'=>$id))->find();
         $MODEL=M('trendsdetail');
